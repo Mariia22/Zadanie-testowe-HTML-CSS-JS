@@ -16,7 +16,7 @@ var include = require("posthtml-include");
 var imagemin = require("gulp-imagemin");
 var webp = require("gulp-webp");
 var htmlmin = require('gulp-htmlmin');
-var uglify = require('gulp-uglify');
+var terser = require('gulp-terser');
 var pipeline = require('readable-stream').pipeline;
 
 
@@ -47,7 +47,8 @@ gulp.task("server", function () {
   gulp.watch("source/sass/**/*.{scss,sass}", gulp.series("css", "refresh"));
   gulp.watch("source/img/icon-*.svg"), gulp.series("sprite", "html", "refresh");
   gulp.watch("source/img/logo-*.svg"), gulp.series("spritelogo", "html", "refresh");
-  gulp.watch("source/*.html"), gulp.series("html", "refresh");
+  gulp.watch("source/*.html", gulp.series("html", "refresh"));
+  gulp.watch("source/js/*.js", gulp.series("compress", "refresh"));
 });
 gulp.task("refresh", function (done) {
   server.reload();
@@ -132,7 +133,7 @@ gulp.task("minify", () => {
 gulp.task("compress", function () {
   return pipeline(
     gulp.src("source/js/*.js"),
-    uglify(),
+    terser(),
     gulp.dest("build/js")
   );
 });
