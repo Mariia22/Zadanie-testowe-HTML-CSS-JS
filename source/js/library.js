@@ -1,6 +1,5 @@
 //II.Formularze
 const form = document.querySelector('.library__form');
-const tbody = document.querySelector('tbody');
 const headerElement = document.getElementById('item__header');
 const authorElement = document.getElementById('item__author');
 const priorityElement = document.getElementById('item__priority');
@@ -23,13 +22,6 @@ form.addEventListener('submit', (e) => {
   const authorValue = authorElement.value.trim();
   const priorityValue = priorityElement.value;
   const categoryValue = categoryElement.value;
-  const book = {
-    header: headerValue,
-    author: authorValue,
-    priority: priorityValue,
-    category: categoryValue
-  };
-
   elements.forEach(item => {
     if (item.parentElement.classList.contains('error')) {
       item.parentElement.classList.remove('error');
@@ -38,6 +30,12 @@ form.addEventListener('submit', (e) => {
   });
   const fails = checkForm(headerValue, authorValue);
   if (fails.length === 0) {
+    const book = {
+      header: headerValue,
+      author: authorValue,
+      priority: priorityValue,
+      category: categoryValue
+    };
     createTable(book);
     library.push(book);
     localStorage.setItem('library', JSON.stringify(library))
@@ -50,14 +48,6 @@ form.addEventListener('submit', (e) => {
     })
   }
 });
-
-function createTable(values) {
-  var row = document.createElement('tr');
-  row.insertAdjacentHTML('beforeend', `<td>${values.header}</td><td>${values.author}</td>
-  <td>${values.priority}</td><td>${values.category}</td>`)
-  tbody.append(row);
-  form.reset();
-}
 
 function checkForm(header, author) {
   let errors = [];
@@ -74,4 +64,13 @@ function checkForm(header, author) {
     errors.push({ input: 'item__category', message: 'Choose category' })
   }
   return errors;
+}
+
+function createTable(values) {
+  const tbody = document.querySelector('tbody');
+  var row = document.createElement('tr');
+  row.insertAdjacentHTML('beforeend', `<td>${values.header}</td><td>${values.author}</td>
+  <td>${values.priority}</td><td>${values.category}</td>`)
+  tbody.append(row);
+  form.reset();
 }
