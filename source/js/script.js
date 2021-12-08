@@ -7,23 +7,16 @@ const lengthNumber = 20;
 
 function addNumbersToTable() {
   createTable(arrayHeadTable);
-  const tableBody = document.querySelector('tbody');
-  const result = generateSortedNumbers(lengthNumber, minNumber, maxNumber);
-  result.forEach((item) => {
-    const row = document.createElement('tr');
-    tableBody.append(row);
-    if (item % 2 === 0) {
-      row.insertAdjacentHTML('beforeend', `<td>${item}</td><td></td>`);;
-    }
-    else {
-      row.insertAdjacentHTML('beforeend', `<td></td><td>${item}</td>`);;
-    }
-    const tdArr = document.querySelectorAll('td');
-    tdArr.forEach((item => {
-
-    }))
-  })
-
+  const resultEven = [];
+  const resultOdd = [];
+  generateSortedNumbers(lengthNumber, minNumber, maxNumber)
+    .forEach((item) => { item % 2 === 0 ? resultEven.push(item) : resultOdd.push(item) });
+  if (resultEven.length > resultOdd.length) {
+    outputArrayToTable(resultEven, resultOdd);
+  }
+  else {
+    outputArrayToTable(resultOdd, resultEven);
+  }
 }
 
 function generateSortedNumbers(length, min, max) {
@@ -55,3 +48,16 @@ function createTable(array) {
   tableBrowser.append(tbody);
 }
 
+function outputArrayToTable(arrayFirst, arraySecond) {
+  const tableBody = document.querySelector('tbody');
+  arrayFirst.forEach((item, index) => {
+    const row = document.createElement('tr');
+    tableBody.append(row);
+    if (item % 2 === 0) {
+      row.insertAdjacentHTML('beforeend', `<td>${item}</td><td>${arraySecond[index] || ""}</td>`)
+    }
+    else {
+      row.insertAdjacentHTML('beforeend', `<td>${arraySecond[index] || ""}</td><td>${item}</td>`)
+    }
+  });
+}
