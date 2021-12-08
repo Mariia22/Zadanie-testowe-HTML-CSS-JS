@@ -1,5 +1,4 @@
 //I. Przeglądarka
-document.querySelector('.browser__button').addEventListener('click', addNumbersToTable);
 const arrayHeadTable = ['Parzyste', 'Nieparzyste'];
 const minNumber = 1;
 const maxNumber = 100;
