@@ -6,12 +6,12 @@ const authorElement = document.getElementById('item__author');
 const priorityElement = document.getElementById('item__priority');
 const categoryElement = document.getElementById('item__category');
 const elements = [headerElement, authorElement, priorityElement, categoryElement];
+let library;
 
-document.addEventListener('load', () => {
-  const library = localStorage.getItem('library') || '';
+document.addEventListener('DOMContentLoaded', () => {
+  library = JSON.parse(localStorage.getItem('library')) || [];
   if (library.length > 0) {
     library.forEach(book => {
-      console.log('book')
       createTable(book)
     })
   }
@@ -23,7 +23,7 @@ form.addEventListener('submit', (e) => {
   const authorValue = authorElement.value.trim();
   const priorityValue = priorityElement.value;
   const categoryValue = categoryElement.value;
-  const values = {
+  const book = {
     header: headerValue,
     author: authorValue,
     priority: priorityValue,
@@ -38,9 +38,9 @@ form.addEventListener('submit', (e) => {
   });
   const fails = checkForm(headerValue, authorValue);
   if (fails.length === 0) {
-    createTable(values);
-    const oldInfo = JSON.parse(localStorage.getItem('library'));
-    localStorage.setItem('library', JSON.stringify([...oldInfo, values]))
+    createTable(book);
+    library.push(book);
+    localStorage.setItem('library', JSON.stringify(library))
   }
   else {
     fails.forEach(item => {
@@ -65,7 +65,7 @@ function checkForm(header, author) {
     errors.push({ input: 'item__header', message: 'Required field' })
   }
   if (author.length < 3) {
-    errors.push({ input: 'item__author', message: 'Required field' })
+    errors.push({ input: 'item__author', message: 'Field must contains at least 3 letters' })
   }
   if (priorityElement.selectedIndex === 0) {
     errors.push({ input: 'item__priority', message: 'Choose priority' })
