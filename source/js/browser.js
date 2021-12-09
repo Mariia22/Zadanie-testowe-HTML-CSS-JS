@@ -1,4 +1,5 @@
 //I. Przeglądarka
+document.querySelector('.browser__button').addEventListener('click', addNumbersToTable);
 const arrayHeadTable = ['Parzyste', 'Nieparzyste'];
 const minNumber = 1;
 const maxNumber = 100;
@@ -35,7 +36,6 @@ function generateRandomNumbers(min, max) {
 function createTable(array) {
   document.querySelector('.browser__table').innerHTML = '<table class="table"></table>';
   const tableBrowser = document.querySelector('table');
-  tableBrowser.setAttribute('border', '1');
   const thead = document.createElement('thead');
   tableBrowser.append(thead);
   const row = document.createElement('tr');

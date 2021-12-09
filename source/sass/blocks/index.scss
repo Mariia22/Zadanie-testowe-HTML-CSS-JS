@@ -1,3 +1,41 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+body{
+  width: 100%;
+  height: 100%;
+  background-color: $background;
+}
+.header {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.site-menu{
+  display: flex;
+  justify-content: space-around;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
 .site-menu__item{
- list-style: none;
+  list-style: none;
+ }
+ .site-menu__link{
+   text-decoration: none;
+   text-align: center;
+   margin: 2rem;
+   padding: 1rem 2rem;
+   font-size: 1rem;
+   border-radius: 99px;
+   background-color:$nav-color;
+   color:$white;
+   border: none;
+   cursor: pointer;
+ }
+ .site-menu__link:hover,
+ .site-menu__link:active{
+  color:$active;
+  opacity: 0.5;
 }
