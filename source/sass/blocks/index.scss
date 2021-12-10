@@ -12,6 +12,7 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 }
 .site-menu{
   display: flex;
@@ -23,6 +24,7 @@ body{
   list-style: none;
  }
  .site-menu__link{
+   display: block;
    text-decoration: none;
    text-align: center;
    margin: 2rem;
