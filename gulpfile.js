@@ -18,6 +18,7 @@ var webp = require("gulp-webp");
 var htmlmin = require('gulp-htmlmin');
 var terser = require('gulp-terser');
 var pipeline = require('readable-stream').pipeline;
+var ghPages = require('gulp-gh-pages');
 
 
 
@@ -136,6 +137,11 @@ gulp.task("compress", function () {
     terser(),
     gulp.dest("build/js")
   );
+});
+
+gulp.task('deploy', function () {
+  return gulp.src('build/**/*')
+    .pipe(ghPages());
 });
 gulp.task(
   "build",
